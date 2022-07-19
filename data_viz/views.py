@@ -1,11 +1,28 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from json import dumps
 # Create your views here.
 import mysql.connector
 
+companyName = ''
+username = ''
+password = ''
+
+
+def login_page(request):
+    if request.method == "POST":
+        companyName = request.POST.get("company_name")
+        username = request.POST.get("user_name")
+        password = request.POST.get("password")
+        # if (username == "anurag" and password == "atto" and companyName == "help"):
+        #     # data_fetch(request)
+        #     return redirect('data_fetch/')
+        # #print(companyName, username, password)
+    return render(request, 'login.html')
+
 
 def data_fetch(request):
+    print("print", companyName, username, password)
     conn = mysql.connector.connect(user='ashish', password='ashish@123',
                                    host='Desktop-G3', database='sql_store', buffered=True)
     cursor = conn.cursor()
